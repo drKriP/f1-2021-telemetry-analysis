@@ -1,0 +1,608 @@
+/* Additional Global & Layout Styles */
+
+.center-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  position: relative;
+}
+
+.left-panel, .right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+  color: var(--neon-cyan);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Data blocks */
+.data-box {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.data-box .label {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.data-box .value {
+  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.data-box .value.highlight {
+  color: var(--neon-purple);
+  text-shadow: 0 0 8px rgba(176, 38, 255, 0.4);
+}
+
+/* Pedals & Gear Area */
+.hud-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.pedals-container {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-end;
+  height: 120px;
+}
+
+.pedal {
+  width: 30px;
+  height: 100%;
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.pedal-fill {
+  width: 100%;
+  transition: height 0.05s linear;
+}
+
+.throttle-fill {
+  background: linear-gradient(to top, rgba(0,255,102,0.6), var(--neon-green));
+  box-shadow: 0 0 10px rgba(0,255,102,0.5);
+}
+
+.brake-fill {
+  background: linear-gradient(to top, rgba(225,6,0,0.6), var(--f1-red));
+  box-shadow: 0 0 10px rgba(225,6,0,0.5);
+}
+
+.pedal-label {
+  position: absolute;
+  top: -25px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* F1 Dashboard Screen */
+.f1-hud-assembly {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.integrated-pedal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.integrated-pedal-label {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--text-dim);
+}
+
+.integrated-pedal-bar {
+  height: 200px;
+  width: 25px;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+}
+
+.integrated-fill {
+  width: 100%;
+  transition: height 0.05s linear;
+}
+
+.brake-fill {
+  background: var(--f1-red);
+  box-shadow: 0 0 15px var(--f1-red);
+}
+
+.throttle-fill {
+  background: var(--neon-green);
+  box-shadow: 0 0 15px var(--neon-green);
+}
+
+.f1-steering-wrapper {
+  background: var(--bg-dark);
+  border: 2px solid rgba(255,255,255,0.05);
+  border-top-color: rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.f1-dash-leds {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 0.5rem 2rem;
+  background: rgba(0,0,0,0.5);
+  border-radius: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.led {
+  height: 20px;
+  flex: 1;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.05);
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+  transition: all 0.05s ease;
+}
+
+.led.off {
+  background: rgba(255,255,255,0.05);
+}
+
+.led.green {
+  background: var(--neon-green);
+  box-shadow: 0 0 12px var(--neon-green), inset 0 0 8px #fff;
+}
+
+.led.red {
+  background: var(--f1-red);
+  box-shadow: 0 0 12px var(--f1-red), inset 0 0 8px #fff;
+}
+
+.led.blue {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 12px var(--neon-cyan), inset 0 0 8px #fff;
+}
+
+.f1-dash-screen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 1.5rem 1rem;
+  min-width: 420px;
+}
+
+.block-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 0 0 130px;
+}
+
+.screen-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--text-main);
+  text-shadow: 0 0 8px rgba(255,255,255,0.3);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 1px;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.screen-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gear-text {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 6rem;
+  line-height: 1;
+  color: var(--neon-purple);
+  text-shadow: 0 0 20px rgba(176, 38, 255, 0.5);
+}
+
+.drs-box {
+  margin-top: 0.5rem;
+  padding: 0.2rem 1rem;
+  text-align: center;
+  border-radius: 4px;
+  font-weight: bold;
+  font-family: var(--font-display);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.2s;
+  align-self: flex-end;
+}
+
+.drs-box.drs-on {
+  background: rgba(0, 255, 102, 0.15);
+  color: var(--neon-green);
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+}
+
+/* Car Health Grids */
+.health-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.health-item {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.02);
+  padding: 0.8rem;
+  border-radius: 6px;
+  border-left: 2px solid var(--text-dim);
+}
+
+.health-item.safe { border-left-color: var(--neon-green); }
+.health-item.warning { border-left-color: var(--neon-yellow); }
+.health-item.danger { border-left-color: var(--f1-red); }
+
+.health-label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.health-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.drs-indicator {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 4px;
+  font-weight: bold;
+  font-family: var(--font-display);
+  letter-spacing: 2px;
+  background: rgba(255,255,255,0.05);
+  color: var(--text-dim);
+  transition: all 0.2s;
+}
+
+.status-connected {
+  background: rgba(0, 255, 102, 0.1);
+  color: var(--neon-green);
+  border: 1px solid var(--neon-green);
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+}
+
+.status-standby {
+  background: rgba(255, 215, 0, 0.1);
+  color: var(--neon-yellow);
+  border: 1px solid var(--neon-yellow);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+.status-disconnected {
+  background: rgba(255, 0, 0, 0.1);
+  color: var(--f1-red);
+  border: 1px solid var(--f1-red);
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+}
+
+.drs-indicator.active {
+  background: rgba(0, 255, 102, 0.15);
+  color: var(--neon-green);
+  border: 1px solid var(--neon-green);
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);
+}
+
+/* Delta & Global Sectors */
+.sector-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.global-best, .my-time {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+.global-best {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding-bottom: 0.3rem;
+}
+
+.purple-text {
+  color: var(--neon-purple);
+  text-shadow: 0 0 8px rgba(176, 38, 255, 0.4);
+  font-weight: 600;
+}
+
+.green-text {
+  color: var(--neon-green);
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.3);
+}
+
+.driver-name {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-family: var(--font-ui);
+}
+
+.delta-red {
+  color: var(--f1-red);
+  font-size: 0.85rem;
+}
+
+/* 4-Tyre Grid */
+.car-top-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
+  background: rgba(0,0,0,0.2);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.05);
+  position: relative;
+}
+
+.car-chassis-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 120px;
+  border: 2px dashed rgba(255,255,255,0.1);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+.tyre-node {
+  display: flex;
+  flex-direction: column;
+  background: rgba(20,20,30,0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 0.5rem;
+  align-items: center;
+  gap: 0.3rem;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  transition: border-color 0.3s;
+}
+
+.tyre-node.danger { border-color: var(--f1-red); box-shadow: 0 0 10px rgba(225,6,0,0.3); }
+.tyre-node.warning { border-color: var(--neon-yellow); box-shadow: 0 0 10px rgba(255,255,0,0.1); }
+.tyre-node.safe { border-color: var(--neon-green); }
+
+.tyre-metric {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+.tyre-metric .val {
+  font-weight: bold;
+  font-family: var(--font-display);
+}
+
+.brake-val {
+  color: var(--f1-red);
+}
+
+.tyre-val {
+  color: var(--text-main);
+}
+
+/* Leaderboard */
+.leaderboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+  max-height: 635px;
+  padding-right: 0.5rem;
+}
+
+.leaderboard-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.leaderboard-list::-webkit-scrollbar-thumb {
+  background: var(--border-neon);
+  border-radius: 4px;
+}
+
+.leaderboard-row {
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.player-row {
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 10px rgba(176, 38, 255, 0.2);
+  background: rgba(176, 38, 255, 0.05);
+}
+
+.lb-pos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.4rem 0.8rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--text-main);
+  min-width: 45px;
+  text-align: center;
+}
+
+.player-row .lb-pos {
+  background: var(--neon-purple);
+  color: #fff;
+  text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.lb-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.3rem 0.6rem;
+  flex: 1;
+}
+
+.lb-driver {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+}
+
+.lb-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.3;
+}
+
+.lb-best {
+  color: var(--neon-cyan);
+  font-family: var(--font-display);
+}
+
+/* Track Map Module */
+.svg-map-wrapper {
+  background: rgba(0,0,0,0.4);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+  height: 600px;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+}
+
+.track-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 10px rgba(176, 38, 255, 0.2));
+}
+
+.track-path-line {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 12px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
+}
+
+.car-dot {
+  fill: var(--text-dim);
+  transition: all 0.3s linear;
+}
+
+.car-dot.player-dot {
+  fill: var(--neon-purple);
+  filter: drop-shadow(0 0 20px var(--neon-purple));
+  stroke: #fff;
+  stroke-width: 2px;
+}
+
+.car-label {
+  fill: #fff;
+  text-anchor: middle;
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+  font-weight: bold;
+  opacity: 0.8;
+}
