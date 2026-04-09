@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Telemetry Test</title>
+</head>
+<body>
+  <h1>F1 Telemetry</h1>
+  <pre id="output"></pre>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script>
+    const socket = io("http://localhost:3000");
+
+    socket.on("telemetry", (data) => {
+      document.getElementById("output").textContent =
+        JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>
