@@ -1,5 +1,5 @@
 {
-  "traceTarget": "VERSTAPPEN",
+  "traceTarget": "Player",
   "enableLapLimit": true,
   "lapLimit": 2
 }

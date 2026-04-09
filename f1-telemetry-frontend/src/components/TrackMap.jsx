@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { TRACK_NAMES } from '../utils/constants';
 
-const TrackMap = ({ mapData, isLive }) => {
+const TrackMap = ({ mapData, isLive, ghost }) => {
   const [transform, setTransform] = useState({ x: 0, y: 0, scale: 1, rotation: 0 });
   const [dragState, setDragState] = useState({ isDragging: false, isRotating: false, startX: 0, startY: 0, initX: 0, initY: 0, initRot: 0 });
+  const [frozenPositions, setFrozenPositions] = React.useState([]);
+
+  React.useEffect(() => {
+    if (isLive && mapData?.positions) {
+      setFrozenPositions(mapData.positions);
+    }
+  }, [isLive, mapData?.positions]);
 
   const trackName = (mapData?.trackId !== undefined && TRACK_NAMES[mapData.trackId]) ? TRACK_NAMES[mapData.trackId] : 'Circuit';
 
-  if (!mapData || !mapData.bounds || mapData.bounds.minX === Infinity || !isLive) {
+  if (!mapData || !mapData.bounds || mapData.bounds.minX === Infinity) {
     return (
       <div className="map-container panel" style={{ gridColumn: '1 / -1', opacity: 0.6 }}>
          <h2>Live Ground Radar <span style={{ color: 'var(--neon-purple)', fontSize: '0.8em', marginLeft:'0.5rem' }}>[{trackName}]</span></h2>
@@ -18,7 +25,8 @@ const TrackMap = ({ mapData, isLive }) => {
     );
   }
 
-  const { bounds, positions, trackPath } = mapData;
+  const { bounds, trackPath } = mapData;
+  const positions = isLive ? mapData.positions : frozenPositions;
   const { minX, maxX, minZ, maxZ } = bounds;
 
   const width = Math.max(maxX - minX, 100);
@@ -176,6 +184,7 @@ const TrackMap = ({ mapData, isLive }) => {
                           <line x1={-Math.max(width, height) * 0.02 / transform.scale} y1="0" x2={Math.max(width, height) * 0.02 / transform.scale} y2="0" stroke="black" strokeWidth={6 / transform.scale} strokeDasharray={`${4 / transform.scale} ${4 / transform.scale}`} />
                       </g>
                   )}
+
 
                   {positions && positions.map(pos => (
                      <g key={pos.carIdx} transform={`translate(${pos.x}, ${pos.z})`}>

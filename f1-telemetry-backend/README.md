@@ -1,40 +1,45 @@
-# F1 2021 Telemetry Node Server
+# F1 2021 Telemetry Node Server (v1.2)
 
 This is the robust backend UDP data processor capable of ingesting raw telemetry data directly from F1 2021 natively over port 20777, normalizing it, generating track topologies dynamically, and streaming it via websockets.
 
 ## Starting the Tracker
 ```bash
 npm install
-npm run dev
+npm run dev -- --host
 ```
+
+## Phase 2 Core Architectures
+
+### 1. SQLite Persistence & Analytics
+The backend has migrated from ephemeral memory to a persistent **SQLite 3** engine (`telemetry.db`). 
+- **Auto-Migrations**: The system automatically updates database schemas on startup.
+- **PB Storage**: Personal bests, including high-frequency speed/throttle/brake traces, are permanently saved per user and track.
+
+### 2. Multi-User Profile System
+Supports up to **4 distinct profiles** (Guest + 3 Custom Users).
+- **Independent Tracking**: PBs are isolated by profile name.
+- **Manual Switching**: Controlled via the frontend to ensure consistent data attribution.
+
+### 3. Modular Data Sync (Concurrency Optimization)
+To prevent network "choking" on mobile devices, the server employs a **Tiered Broadcast System**:
+- **Lite Stream (10Hz)**: Real-time HUD data (Gears, RPM, Speed, Delta).
+- **Heavy Stream (On-Demand)**: Thousands of lap sample points are only synchronized when exactly requested (e.g., when opening the Analysis tab) or when a lap finishes.
 
 ## Track Map Topography & Radar
 The backend operates an automated **Map Discovery Engine**. 
-Because F1 does not strictly provide explicit tracking topologies via UDP, the system traces your physical path to build JSON geometries algorithmically.
-
-1.  **Coordinate Interception**: By monitoring your `m_carMotionData`, the server drops absolute coordinates onto a tracker array.
-2.  **Boundary Freeze (Lap Limit)**: The exact millisecond your `m_currentLapNum` ticks +2 times (enabling outlaps to cleanly cover start/finish lines natively), the mapping completely caches locally to `/trackMaps/track_X.json`.
-3.  **Sector Tracking**: Internal detectors actively observe `m_sector` crossings. If it senses a transit, it captures and embeds the exact global track coordinate as the Finish Line, Sector 1, or Sector 2 indicator natively inside the database.
-4.  **Auto-Loader**: When you start a race, the backend dynamically queries your local database to see if `track_X.json` was previously discovered. If found, it skips all topography mapping completely and restores your physical radar seamlessly.
-
-## Environment Setup (`.env`)
-The server uses environment variables for flexible port mapping:
-```env
-PORT=3000
-UDP_PORT=20777
-```
+1.  **Coordinate Interception**: Drops absolute coordinates using `m_carMotionData`.
+2.  **Boundary Freeze (Lap Limit)**: Caches the final map to `/trackMaps/track_X.json` after the designated out-lap limit.
+3.  **Auto-Loader**: Dynamically restores previously discovered track geometries on session start.
 
 ## Configuration Engine (`config.json`)
 Manage live tracking priorities without restarting the server:
 ```json
 {
-  "traceTarget": "VERSTAPPEN",
+  "traceTarget": "Player",
   "enableLapLimit": true,
   "lapLimit": 2
 }
 ```
-*   `traceTarget`: Follow a specific AI driver (e.g., "VERSTAPPEN") or "Player" to generate the map.
-*   `enableLapLimit`: Automatically save the map after a set number of laps.
 
 ## Session Watchdog
 The backend includes a **2-second heartbeat detection**. If the game stops sending data, the server broadcasts an `isLive: false` signal, triggering the frontend's Standby mode while preserving historical session data.

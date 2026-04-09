@@ -33,7 +33,7 @@ const TyreNode = ({ label, tyreTemp, brakeTemp }) => (
 );
 
 const CarHealth = ({ telemetry, isLive }) => {
-  if (!telemetry || !isLive) {
+  if (!telemetry) {
     return (
        <div className="data-box" style={{ width: '100%', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px dashed rgba(255,255,255,0.1)', opacity: 0.5 }}>
           <div className="label">[ SENSORS OFFLINE ]</div>
