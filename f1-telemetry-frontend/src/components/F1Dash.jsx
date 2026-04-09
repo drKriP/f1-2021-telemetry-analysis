@@ -9,7 +9,7 @@ const formatTime = (timeInSecs) => {
 };
 
 const F1Dash = ({ telemetry, lap, isLive }) => {
-  if (!telemetry || !isLive) {
+  if (!telemetry) {
     return (
       <div className="f1-hud-assembly" style={{ opacity: 0.5, filter: 'grayscale(0.8)' }}>
         <div className="data-box" style={{ width: '100%', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed rgba(255,255,255,0.1)' }}>
@@ -44,6 +44,13 @@ const F1Dash = ({ telemetry, lap, isLive }) => {
     return 'blue';
   };
 
+  const delta = telemetry?.performance?.delta || 0;
+  const deltaColor = delta < 0 ? 'var(--neon-green)' : (delta > 0 ? 'var(--f1-red)' : 'var(--text-main)');
+  const formatDelta = (d) => {
+    if (d === 0) return "0.000";
+    return (d > 0 ? "+" : "") + d.toFixed(3);
+  };
+
   return (
     <div className="f1-hud-assembly">
       
@@ -63,7 +70,10 @@ const F1Dash = ({ telemetry, lap, isLive }) => {
           ))}
         </div>
         
-        <div className="f1-dash-screen">
+        <div className={`f1-dash-screen ${!isLive ? 'is-standby' : ''} ${telemetry?.performance?.p2 ? 'is-split' : ''}`}>
+          {!isLive && <div className="dash-standby-overlay">STANDBY</div>}
+          {isLive && telemetry?.performance?.p2 && <div className="dash-standby-overlay split-overlay">SPLIT SCREEN ACTIVE</div>}
+          
           <div className="screen-left block-column">
             <div className="screen-stat">
               <span className="stat-value">{speed}</span>
@@ -83,8 +93,13 @@ const F1Dash = ({ telemetry, lap, isLive }) => {
             
             <span className="gear-text">{gear}</span>
 
-            <div style={{ fontFamily: 'var(--font-display)', color: 'var(--neon-green)', fontSize: '1.4rem', fontWeight: 'bold' }}>
-              {formatTime(lap?.lapTime)}
+            <div className="dash-timing">
+              <div className="lap-time">{formatTime(lap?.lapTime)}</div>
+              {telemetry?.performance?.pbSamples?.length > 0 && (
+                <div className="delta-time" style={{ color: deltaColor }}>
+                  {formatDelta(delta)}
+                </div>
+              )}
             </div>
           </div>
 
